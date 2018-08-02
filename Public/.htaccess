@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteCond %{DOCUMENT_ROOT} !-f
+RewriteRule !\.(js|ico|gif|jpg|png|css|swf|flv|xml|eot|svg|ttf|otf|woff2?)$ index.php [QSA,L]
