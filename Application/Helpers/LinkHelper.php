@@ -4,8 +4,7 @@ namespace Application\Helpers;
 use Atto\Config;
 use Atto\Router;
 
-
-class LinkHelper 
+class LinkHelper
 {
     /**
      * Basepath where the public folder is located
@@ -34,7 +33,7 @@ class LinkHelper
      * Creates a resource link for the filename
      *
      * @param string $filename
-     * 
+     *
      * @return string
      */
     public function resource($filename)
@@ -52,7 +51,7 @@ class LinkHelper
      *
      * @throws \Exception
      */
-    public function generate($name, array $args = []) 
+    public function generate($name, array $args = [])
     {
         return $this->router->generate($name, $args);
     }

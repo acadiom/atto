@@ -17,34 +17,35 @@ html {
     background-color: #f5f5f5;
   }
   
-  
+
   /* Custom page CSS
   -------------------------------------------------- */
   /* Not required for template or sticky footer method. */
   
   body > .container {
-    padding: 60px 15px 0;
+    padding: 100px 15px 0;
   }
  
   .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
   }
-  
-  code {
-    font-size: 80%;
-  }
-  
 
-  .table-title {
-		color: #fff;
-		background: #4b5366;		
-		padding: 16px 25px;
-		margin: -20px -25px 10px;
-		border-radius: 3px 3px 0 0;
+  .table > tbody > tr > td {
+    vertical-align: middle;
   }
 
-  .table-title h2 {
-		margin: 5px 0 0;
-		font-size: 24px;
-	}
+  .form-group {
+    margin-right: 25px;
+  }
+
+  .form-group > .form-control {
+    margin-left: 15px;
+  }
+  
+  .form-group > .input-sm {
+    width: 100px;
+  }
+  .form-group > input.input-sm {
+    width: 300px;
+  }

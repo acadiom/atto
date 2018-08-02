@@ -1,12 +1,10 @@
-@extends('master')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <!-- Create code modal form component -->
-    @include('components.create-code')
+    <?php echo $__env->make('components.create-code', $__env->array_except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <!-- Search form component -->
-    @include('components.search-form')
+    <?php echo $__env->make('components.search-form', $__env->array_except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <table class="table table-striped table-hover">
         <thead>
@@ -29,4 +27,6 @@
         </tbody>
     </table>
 
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('master', $__env->array_except(get_defined_vars(), ['__data', '__path']))->render(); ?>

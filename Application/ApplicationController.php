@@ -49,7 +49,7 @@ abstract class ApplicationController extends Controller
      */
     public function __construct(Request $request, Response $response)
     {
-        parent::__construct($request, $response);
+        parent::__construct($request, $response); 
 
         // Store the router instance
         $this->router = Config::getProperty(Router::class);

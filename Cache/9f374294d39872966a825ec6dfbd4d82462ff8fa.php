@@ -12,13 +12,13 @@
     <title>Sticky Footer Navbar Template for Bootstrap</title>
 
     <!-- Font awesome icons -->
-    <link href="{{ $link->resource('css/fontawesome-4.7.0.css') }}" rel="stylesheet">
+    <link href="<?php echo $__env->e($link->resource('css/fontawesome-4.7.0.css')); ?>" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ $link->resource('css/bootstrap-3.3.7.css') }}" rel="stylesheet">
+    <link href="<?php echo $__env->e($link->resource('css/bootstrap-3.3.7.css')); ?>" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ $link->resource('css/application.css') }}" rel="stylesheet">
+    <link href="<?php echo $__env->e($link->resource('css/application.css')); ?>" rel="stylesheet">
 
   </head>
 
@@ -49,7 +49,7 @@
 
     <!-- Begin page content -->
     <div class="container">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </div>
 
 
@@ -63,8 +63,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{{ $link->resource('js/jquery-1.12.4.js') }}"></script>
-    <script src="{{ $link->resource('js/bootstrap-3.3.7.js') }}"></script>
-    <script src="{{ $link->resource('js/application.js') }}"></script>
+    <script src="<?php echo $__env->e($link->resource('js/jquery-1.12.4.js')); ?>"></script>
+    <script src="<?php echo $__env->e($link->resource('js/bootstrap-3.3.7.js')); ?>"></script>
+    <script src="<?php echo $__env->e($link->resource('js/application.js')); ?>"></script>
   </body>
 </html>
