@@ -6,8 +6,6 @@ namespace Atto\Cache;
  *
  * @package   Atto
  *
- * @namespace Atto\Cache
- * @name      Atto\Cache\Item
  * @author    Andrei Alexandru Romila
  * @version   v1.0
  */

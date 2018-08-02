@@ -1,15 +1,32 @@
 <?php $__env->startSection('content'); ?>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <h2>C&oacute;digos <small>de error</small></h2>
-        </div>
-        <div class="col-sm-8 text-right">						
-            <a href="#" class="btn btn-primary"><i class="material-icons">&#xE863;</i> <span>Refresh List</span></a>
-            <a href="#" class="btn btn-info"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
-        </div>
-    </div>
+    <!-- Create code modal form component -->
+    <?php echo $__env->make('components.create-code', $__env->array_except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-<?php $__env->stopSection(); ?>   
+    <!-- Search form component -->
+    <?php echo $__env->make('components.search-form', $__env->array_except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Acronym</th>
+                <th>Code</th>
+                <th>Concatenated</th>
+                <th>Language</th>		
+                <th>Description</th>			
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a href="#">TARSAN</a></td>
+                <td>00001</td>
+                <td>TARSAN_00001</td>
+                <td> es-ES</td>
+                <td>El usuario no tiene permisos para ejecutar la operaci&oacuten.</td>
+            </tr>
+        </tbody>
+    </table>
+
+<?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('master', $__env->array_except(get_defined_vars(), ['__data', '__path']))->render(); ?>
