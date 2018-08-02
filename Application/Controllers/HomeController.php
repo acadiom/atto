@@ -25,6 +25,7 @@ class HomeController extends ApplicationController
      */
     public function index()
     {
+        // Create a new View
         return $this->view('home.index');
     }
 }
