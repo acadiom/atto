@@ -9,7 +9,8 @@
  */
 
 $routes = [
-    ['GET', '', 'Application\\Controllers\\HomeController::index', 'homepage']
+    ['GET', '/', 'Application\\Controllers\\HomeController::index', 'homepage'],
+    ['GET', '/codes', 'Application\\Ajax\\CodesController::list', 'codes-list']
 ];
 
 // Returns the configured routes

@@ -38,7 +38,7 @@ class LinkHelper
      */
     public function resource($filename)
     {
-        return $this->basepath . $filename;
+        return $this->basepath . '/' . $filename;
     }
 
     /**

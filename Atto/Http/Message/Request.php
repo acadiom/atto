@@ -55,7 +55,8 @@ class Request
         $uri = substr($uri, strlen($this->basepath));
 
         // Remove any slashes from the uri
-        return trim($uri, '/');;
+        // return trim($uri, '/');
+        return $uri;
     }
 
     /**

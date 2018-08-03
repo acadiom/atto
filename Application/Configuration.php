@@ -7,8 +7,9 @@ return [
 		// Application configuration - here you can configure you're own Application
         'application.environment' => 'development',
 		
-		// Application basepath, if the application is not "/" you should configure it here
-        'application.basepath' => '/ssl.atto.dev/public/',
+		// Application basepath, if the application is not "/" you should 
+		// configure it here without the ending slash, use blank "" for base url
+        'application.basepath' => '/ssl.atto.dev/public',
 
 		// Database tables prefix
 		'application.table.prefix' => '',
