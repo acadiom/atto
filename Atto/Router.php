@@ -11,6 +11,11 @@ namespace Atto;
  *
  * @method get(string $route, mixed $action, string $name = null)
  * @method post(string $route, mixed $action, string $name = null)
+ * @method put(string $route, mixed $action, string $name = null)
+ * @method delete(string $route, mixed $action, string $name = null)
+ * @method patch(string $route, mixed $action, string $name = null)
+ * @method head(string $route, mixed $action, string $name = null)
+ * @method options(string $route, mixed $action, string $name = null)
  */
 class Router
 {
@@ -35,8 +40,13 @@ class Router
      * @var array
      */
     protected $routes = [
-        'GET' => [],
-        'POST' => []
+        'GET'     => [],
+        'POST'    => [],
+        'PUT'     => [],
+        'DELETE'  => [],
+        'PATCH'   => [],
+        'HEAD'    => [],
+        'OPTIONS' => []
     ];
 
     /**
@@ -76,7 +86,7 @@ class Router
     }
 
     /**
-     * Magic method for get|post routes
+     * Magic method for get|post|put|delete|patch|head|options routes
      *
      * @param $method
      * @param $arguments

@@ -79,7 +79,13 @@ class Request
      */
     public function method()
     {
-        return $_SERVER['REQUEST_METHOD'];
+        if (isset($_POST['_method'])) {
+            $method = strtoupper($_POST['_method']);
+        } else {
+            $method = strtoupper($_SERVER['REQUEST_METHOD']);
+        }
+
+        return $method;
     }
 
     /**
