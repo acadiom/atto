@@ -39,7 +39,7 @@
         </div>
 
         <div class="text-right form-filter">
-            <button class="btn btn-primary" type="button" id="toggleCreateCode">Create code</button>
+            <button class="btn btn-primary" type="button" id="toggleCreateCode"><i class="fa fa-pencil" aria-hidden="true"></i> Create code</button>
         </div>
     </div>
 </div>

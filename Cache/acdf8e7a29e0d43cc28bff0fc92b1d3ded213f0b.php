@@ -12,6 +12,7 @@
                 <div class="form-group">
                     <label for="acronym">Acronym</label>
                     <select class="form-control input-sm" id="acronym">
+                        <option> Any</option>
                         <option value="BAMOBI">BAMOBI</option>
                         <option value="MOEMCL">MOEMCL</option>
                         <option value="TOUCID">TOUCID</option>
@@ -23,6 +24,7 @@
                 <div class="form-group">
                     <label for="language">Language</label>
                     <select class="form-control input-sm" id="language">
+                        <option> Any</option>
                         <option> es-ES</option>
                         <option> ga-ES</option>
                         <option> ca-CA</option>
@@ -31,13 +33,13 @@
                 </div>
                 <div class="form-group">
                     <label for="code">Code</label>
-                    <input type="text" class="form-control input-sm" id="code" placeholder="0001">
+                    <input type="text" class="form-control input-sm" id="code" placeholder="0701201">
                 </div>
             </form>
         </div>
 
         <div class="text-right form-filter">
-            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#createCode">Create code</button>
+            <button class="btn btn-primary" type="button" id="toggleCreateCode"><i class="fa fa-pencil" aria-hidden="true"></i> Create code</button>
         </div>
     </div>
 </div>

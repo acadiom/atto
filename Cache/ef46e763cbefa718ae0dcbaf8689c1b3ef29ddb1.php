@@ -11,11 +11,20 @@
         <div class="modal-body">
           <form class="form-horizontal">
             <fieldset>
+              <!-- Concatenated -->
+              <div class="form-group">
+                <label for="concatenated" class="col-lg-2 control-label">Concatenated</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control input-sm" id="concatenated" name="concatenated" placeholder="acronym_00000001">
+                  <span class="help-block" id="latestCode">Latest code: </span>
+                </div>
+              </div>
+
               <!-- Acronym -->
               <div class="form-group">
                 <label for="acronym" class="col-lg-2 control-label">Acronym</label>
                 <div class="col-lg-10">
-                  <input type="text" disabled="disabled" class="form-control input-sm" id="acronym" name="acronym">
+                  <input type="text" class="form-control input-sm" id="acronym" name="acronym">
                 </div>
               </div>
 
@@ -23,16 +32,7 @@
               <div class="form-group">
                 <label for="code" class="col-lg-2 control-label">Code</label>
                 <div class="col-lg-10">
-                  <input type="text" disabled="disabled" class="form-control input-sm" id="code" name="code">
-                </div>
-              </div>
-
-              <!-- Concatenated -->
-              <div class="form-group">
-                <label for="concatenated" class="col-lg-2 control-label">Concatenated</label>
-                <div class="col-lg-10">
-                  <input type="text" class="form-control input-sm" id="concatenated" name="concatenated" placeholder="acronym_00000001">
-                  <span class="help-block" id="latestCode">Latest code: </span>
+                  <input type="text" class="form-control input-sm" id="code" name="code">
                 </div>
               </div>
 
@@ -60,7 +60,7 @@
         
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary" id="btnSaveChanges">Save changes</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
