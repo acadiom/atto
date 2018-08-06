@@ -13,3 +13,4 @@ CREATE TABLE i18n_codes (
 ) Engine=InnoDB
 
 
+id, acronym, data_type, language, code, acronym_code, message, deleted, created_at, updated_at
