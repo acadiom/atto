@@ -38,7 +38,7 @@ return [
 		'database.host'     => '127.0.0.1',
 		'database.port'     => 3306,
 		'database.user'     => 'root',
-		'database.password' => 'parola',
+		'database.password' => '',
 		'database.name'     => 'proyectos_isban',
 		'database.charset'  => 'utf8',
 ];

@@ -1,10 +1,10 @@
 <?php
 namespace Application;
 
-use Atto\Model;
-use Atto\Libraries\Database\MySQLi;
-use Atto\Libraries\Logger;
 use Atto\Config;
+use Atto\Logger;
+use Atto\Model;
+use Atto\Database;
 
 /**
  * ApplicationModel class
@@ -26,14 +26,14 @@ abstract class ApplicationModel extends Model {
 	/**
 	 * Logger instance
 	 * 
-	 * @var \Atto\Libraries\Logger
+	 * @var Logger
 	 */
 	protected $log;
 	
 	/**
 	 * Database driver
 	 * 
-	 * @var \Atto\Libraries\Database\MySQLi
+	 * @var Database
 	 */
 	protected $database;
 
@@ -58,7 +58,7 @@ abstract class ApplicationModel extends Model {
 		
 		// Create database connection
 		if ($database === null) {
-			$database = new MySQLi();
+			$database = new Database();
 		}
 		
 		return $database;

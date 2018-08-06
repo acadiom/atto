@@ -272,11 +272,54 @@ class I18nCode extends ApplicationModel
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+
     }
 
 
+    public function getLanguages()
+    { 
+        $query  = 'SELECT DISTINCT(language) AS language FROM ';
+        $query .= $this->getTableName() . ' ';
+        $query .= 'ORDER BY language';
+
+        $this->database->prepare($query);
+        if ($this->database->execute()) {
+            return $this->database->fetchColumn(0);
+        }
+
+        return [];
+    }
+
+    public function getAcronyms()
+    { 
+        $query  = 'SELECT DISTINCT(acronym) AS acronym FROM ';
+        $query .= $this->getTableName() . ' ';
+        $query .= 'ORDER BY acronym';
+
+        $this->database->prepare($query);
+        if ($this->database->execute()) {
+            return $this->database->fetchColumn(0);
+        }
+
+        return [];
+    }
+
+    /**
+     * Search codes 
+     *
+     * @param string $acronym
+     * @param string $language
+     * @param string $code
+     * @param integer $limit
+     * @param integer $offset
+     * 
+     * @return array List of codes
+     */
     public function search($acronym = '', $language = '', $code = '', $limit = 50, $offset = 0)
     {
+        $types  = '';
+        $params = [];
+
         $query  = 'SELECT id, acronym, data_type, language, code, acronym_code, message, deleted, created_at, updated_at ';
         $query .= 'FROM ';
         $query .= $this->getTableName() . ' ';
@@ -285,31 +328,55 @@ class I18nCode extends ApplicationModel
         // Check for acronym filter
         if ($acronym !== '') {
             $query .= 'acronym = ? AND ';
-            $this->database->bind('s', $acronym);
+            $types .= 's';
+            $params[] = $acronym;
         }
 
         // Check for language code
         if ($language !== '') {
             $query .= 'language = ? AND ';
-            $this->database->bind('s', $language);
+            $types .= 's';
+            $params[] = $language;
         }
 
         // Check for the code filter
         if ($code !== '') {
-            $code = "%$code%";
             $query .= 'code like ? AND ';
-            $this->database->bind('s', $code);
+            $types .= 's';
+            $params[] = "%$code%";
         }
 
         // Only active codes are allowed
         $query .= 'deleted = ? ';
-        $query .= 'ORDER BY code DESC created_at DESC ';
+        $types .= 's';
+        $params[] = 'N';
+
+        // Get total results
+        $this->database->prepare($query);
+        $this->database->execute($types, ...$params);
+        $totalResults = $this->database->resultsCount();
+
+        // Order and limit the results
+        $query .= 'ORDER BY code DESC, created_at DESC ';
         $query .= 'LIMIT ? OFFSET ?';
 
-        $this->database->bind('s', 'N');
-        $this->database->bind('ii', $limit, $offset);
+        $types .= 'i';
+        $params[] = $limit;
 
-        
+        $types .= 'i';
+        $params[] = $offset;
 
+        // Prepare the statement
+        $this->database->prepare($query);
+        $this->database->bindArray($types, $params);
+
+        if ($this->database->execute() === false) {
+            throw new \RuntimeException($this->database->getError());
+        }
+
+        $results['totalResults'] = $totalResults;
+        $results['codeList'] = $this->database->fetchObject();
+
+        return $results;
     }
 }

@@ -32,3 +32,30 @@ $("#concatenated").keyup(function() {
 
 });
 
+
+$(function() {
+
+    $.ajax({
+        url: "/ssl.atto.dev/public/languages",
+        success: function(result) {
+            var select = $('#search-language');                       
+            select.find('option').remove();  
+            $.each(result, function(key, value) {              
+                $('<option>').val(value).text(value).appendTo(select);
+            });
+        }
+    });
+
+    $.ajax({
+        url: "/ssl.atto.dev/public/acronyms",
+        success: function(result) {
+            var select = $('#search-acronym');                       
+            select.find('option').remove();  
+            $.each(result, function(key, value) {              
+                $('<option>').val(value).text(value).appendTo(select);
+            });
+        }
+    });
+
+});
+

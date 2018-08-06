@@ -11,7 +11,6 @@ namespace Atto\Http\Message;
  */
 class Request
 {
-
     /**
      * The base path
      *
@@ -101,7 +100,7 @@ class Request
      */
     public function acceptEncoding($encoding)
     {
-        if (!isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
+        if ( ! isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
             return false;
         }
 

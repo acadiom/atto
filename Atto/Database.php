@@ -1,5 +1,5 @@
 <?php
-namespace atto\libraries\database;
+namespace Atto;
 
 use Atto\Config;
 
@@ -374,6 +374,9 @@ class Database {
      * @return array
      */
     public function fetchColumn($column = 0) {
+        // Store the results first
+        $this->storeResults();
+
         $result = [];
 
         for ($i = 0; $i < $this->resultsCount; $i++) {

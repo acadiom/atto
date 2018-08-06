@@ -3,8 +3,8 @@ namespace Atto\Blade\Engines;
 
 use Atto\Blade\Compilers\Compiler;
 
-class Engine {
-
+class Engine
+{
     /**
      * The Blade compiler instance.
      *
@@ -24,10 +24,11 @@ class Engine {
      *
      * @param Compiler $compiler
      */
-    public function __construct(Compiler $compiler) {
+    public function __construct(Compiler $compiler)
+    {
         $this->compiler = $compiler;
     }
-    
+
     /**
      * Get the evaluated contents of the view at the given path.
      *
@@ -36,21 +37,22 @@ class Engine {
      *
      * @return string
      */
-    protected function evaluatePath($__path, $__data) {
-    	$obLevel = ob_get_level();
-    	ob_start();
-    	extract($__data);
-    
-    	// We'll evaluate the contents of the view inside a try/catch block so we can
-    	// flush out any stray output that might get out before an error occurs or
-    	// an exception is thrown. This prevents any partial Views from leaking.
-    	try {
-    		include $__path;
-    	} catch (\Exception $e) {
-    		$this->handleViewException($e, $obLevel);
-    	}
-    
-    	return ltrim(ob_get_clean());
+    protected function evaluatePath($__path, $__data)
+    {
+        $obLevel = ob_get_level();
+        ob_start();
+        extract($__data);
+
+        // We'll evaluate the contents of the view inside a try/catch block so we can
+        // flush out any stray output that might get out before an error occurs or
+        // an exception is thrown. This prevents any partial Views from leaking.
+        try {
+            include $__path;
+        } catch (\Exception $e) {
+            $this->handleViewException($e, $obLevel);
+        }
+
+        return ltrim(ob_get_clean());
     }
 
     /**
@@ -61,7 +63,8 @@ class Engine {
      *
      * @return string
      */
-    public function get($path, array $data = []) {
+    public function get($path, array $data = [])
+    {
         $this->lastCompiled[] = $path;
 
         // If this given view has expired, which means it has simply been edited since
@@ -88,7 +91,8 @@ class Engine {
      *
      * @return Compiler
      */
-    public function getCompiler() {
+    public function getCompiler()
+    {
         return $this->compiler;
     }
 
@@ -102,7 +106,8 @@ class Engine {
      *
      * @throws $e
      */
-    protected function handleViewException(\Exception $e, $obLevel) {
+    protected function handleViewException(\Exception $e, $obLevel)
+    {
         $e = new \ErrorException($this->getMessage($e), 0, 1, $e->getFile(), $e->getLine(), $e);
 
         while (ob_get_level() > $obLevel) {
@@ -111,7 +116,7 @@ class Engine {
 
         throw $e;
     }
-    
+
     /**
      * Get the exception message for an exception.
      *
@@ -119,7 +124,8 @@ class Engine {
      *
      * @return string
      */
-    protected function getMessage(\Exception $e) {
+    protected function getMessage(\Exception $e)
+    {
         return $e->getMessage() . ' (View: ' . realpath(end($this->lastCompiled)) . ')';
     }
 }
