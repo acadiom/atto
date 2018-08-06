@@ -11,6 +11,3 @@ CREATE TABLE i18n_codes (
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) Engine=InnoDB
-
-
-id, acronym, data_type, language, code, acronym_code, message, deleted, created_at, updated_at
