@@ -2,10 +2,10 @@
 namespace Application\Ajax;
 
 use Application\ApplicationController;
+use Application\Helpers\FileParserHelper;
+use Application\Models\I18nCode;
 use Atto\Http\Message\Request;
 use Atto\Http\Message\Response;
-use Application\Models\I18nCode;
-use Application\Helpers\FileParserHelper;
 
 class CodeController extends ApplicationController 
 {
@@ -36,22 +36,7 @@ class CodeController extends ApplicationController
 
         return $this->ajax($codeList);
     }
-
-<<<<<<< HEAD:Application/Ajax/CodeController.php
-    /**
-     * Searches a code in the database
-     *
-     * @param string $acronym
-     * @param string $code
-     * @param integer $limit
-     * @param integer $offset
-     * 
-     * @return array 
-     */
-    public function search($acronym, $code, $limit = 10, $offset = 0)
-    {
-        // 
-=======
+    
     public function languages()
     {
         $model     = new I18nCode();
@@ -108,6 +93,5 @@ class CodeController extends ApplicationController
         $query  = substr($query, 0, -1);
 
         return $this->ajax($query);
->>>>>>> d7c2ae97a7f35504f2811638db551feb93763c8f:Application/Ajax/CodesController.php
     }
 }
