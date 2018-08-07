@@ -14,7 +14,6 @@ use Atto\Http\Message\Response;
  */
 abstract class Controller
 {
-
     /**
      * Request object
      *
@@ -39,7 +38,7 @@ abstract class Controller
     /**
      * View instance
      *
-     * @var \Atto\View
+     * @var View
      */
     protected $view;
 
@@ -62,8 +61,9 @@ abstract class Controller
      *
      * @return Response
      */
-    protected function ajax($object) : Response
+    protected function ajax($object): Response
     {
+        $this->response->addHeader("HTTP/1.1 200 OK");
         $this->response->addHeader('Content-type: application/json; charset=utf-8');
         $this->response->setBody(json_encode($object));
 
@@ -78,7 +78,7 @@ abstract class Controller
      *
      * @return Response
      */
-    protected function view($view, array $data = []) : Response
+    protected function view(string $view, array $data = []): Response
     {
         $views = Config::getProperty('views.path');
         $cache = Config::getProperty('views.cache');
@@ -98,7 +98,7 @@ abstract class Controller
      *
      * @return Response
      */
-    protected function redirect($url) : Response
+    protected function redirect(string $url): Response
     {
         $this->response->addHeader($this->request->protocol() . ' 302 Found');
         $this->response->addHeader('Location: ' . $url);

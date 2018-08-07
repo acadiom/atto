@@ -11,7 +11,6 @@ namespace Atto;
  */
 class Config
 {
-
     /**
      * All configurations properties
      *

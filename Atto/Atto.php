@@ -59,7 +59,7 @@ class Atto
 		$method = $this->request->method();
 		$uri = $this->request->uri();
 
-		if (($match = $this->router->match($method, $uri)) === false) {
+		if (($match = $this->router->match($method, $uri)) === null) {
 			throw new \RuntimeException("404 Not found $uri", 10001);
 		}
 

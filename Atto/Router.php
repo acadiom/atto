@@ -80,7 +80,7 @@ class Router
      *
      * @param string $basepath
      */
-    public function __construct($basepath = '')
+    public function __construct(string $basepath = '')
     {
         $this->basepath = $basepath;
     }
@@ -88,12 +88,12 @@ class Router
     /**
      * Magic method for get|post|put|delete|patch|head|options routes
      *
-     * @param $method
-     * @param $arguments
+     * @param string $method
+     * @param array $arguments
      *
      * @throws \Exception
      */
-    public function __call($method, $arguments)
+    public function __call(string $method, array $arguments)
     {
         $this->register($method, ...$arguments);
     }
@@ -150,9 +150,9 @@ class Router
      * @param  string $method
      * @param  string $uri
      *
-     * @return array|false
+     * @return array|null
      */
-    public function match($method, $uri)
+    public function match($method, $uri): ?array
     {
         $routes = $this->routes[$method];
 
@@ -178,7 +178,7 @@ class Router
             }
         }
 
-        return false;
+        return null;
     }
 
     /**

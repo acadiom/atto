@@ -11,7 +11,6 @@ namespace Atto;
  */
 class Loader
 {
-
     /**
      * PHP default file extension
      *
@@ -27,10 +26,11 @@ class Loader
     protected $prefixes = [];
 
     /**
+     * Loader constructor
      *
      * @param boolean $register
      */
-    public function __construct($register = true)
+    public function __construct(bool $register = true)
     {
         if ($register === true) {
             spl_autoload_register([$this, 'loadClass'], false, true);
@@ -46,9 +46,8 @@ class Loader
      *
      * @return void
      */
-    public function registerNamespace($namespace, $directory, $prepend = false)
+    public function registerNamespace(string $namespace, string $directory, bool $prepend = false)
     {
-
         if (is_dir($directory) === false || is_readable($directory) === false) {
             echo "The directory: [$directory] doesn't exist or is not readable!<br />";
 
@@ -85,11 +84,10 @@ class Loader
      *
      * @param string $class
      *
-     * @return bool|mixed
+     * @return string|null
      */
-    protected function loadClass($class)
+    protected function loadClass(string $class) : ?string
     {
-
         // the current namespace prefix
         $prefix = $class;
 
@@ -114,7 +112,7 @@ class Loader
         }
 
         // never found a mapped file
-        return false;
+        return null;
 
     }
 
