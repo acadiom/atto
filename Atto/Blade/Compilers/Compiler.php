@@ -3,7 +3,10 @@ namespace Atto\Blade\Compilers;
 
 class Compiler
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> d7c2ae97a7f35504f2811638db551feb93763c8f
     /**
      * The file currently being compiled.
      *
@@ -92,7 +95,7 @@ class Compiler
         // If the compiled file doesn't exist we will indicate that the view is expired
         // so that it can be re-compiled. Else, we will verify the last modification
         // of the views is less than the modification times of the compiled views.
-        if (!file_exists($compiled)) {
+        if ( ! file_exists($compiled)) {
             return true;
         }
 
@@ -132,7 +135,11 @@ class Compiler
             $this->setPath($path);
         }
 
+<<<<<<< HEAD
         if (!is_null($this->cachePath)) {
+=======
+        if ( ! is_null($this->cachePath)) {
+>>>>>>> d7c2ae97a7f35504f2811638db551feb93763c8f
             $contents = $this->compileString(file_get_contents($this->getPath()));
 
             file_put_contents($this->getCompiledPath($this->getPath()), $contents);

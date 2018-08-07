@@ -3,8 +3,6 @@
  * Configuration file
 */
 
-
-
 return [
 		// Application configuration - here you can configure you're own Application
         'application.environment' => 'development',

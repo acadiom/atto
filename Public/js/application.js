@@ -33,3 +33,11 @@ $("#concatenated").keyup(function() {
 });
 
 
+<<<<<<< HEAD
+=======
+$(function() {
+    
+
+});
+
+>>>>>>> d7c2ae97a7f35504f2811638db551feb93763c8f

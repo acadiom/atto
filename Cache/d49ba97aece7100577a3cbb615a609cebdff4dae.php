@@ -13,9 +13,9 @@
                     <label for="acronym">Acronym</label>
                     <select class="form-control input-sm" id="search-acronym">
                         <option value=""> Any</option>
-                        @foreach ($acronyms as $acronym)
-                            <option value="{{ $acronym }}">{{ $acronym }}</option>
-                        @endforeach
+                        <?php foreach($acronyms as $acronym): ?>
+                            <option value="<?php echo $__env->e($acronym); ?>"><?php echo $__env->e($acronym); ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <!-- Language - Todo: Get unique languages from database -->
@@ -23,9 +23,9 @@
                     <label for="language">Language</label>
                     <select class="form-control input-sm" id="search-language">
                         <option> Any</option>
-                        @foreach ($languages as $language)
-                            <option value="{{ $language }}">{{ $language }}</option>
-                        @endforeach
+                        <?php foreach($languages as $language): ?>
+                            <option value="<?php echo $__env->e($language); ?>"><?php echo $__env->e($language); ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-group">

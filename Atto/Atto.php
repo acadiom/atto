@@ -1,10 +1,10 @@
 <?php
 namespace Atto;
 
-use Atto\Router;
 use Atto\Http\Message\Request;
 use Atto\Http\Message\Response;
 use Atto\Http\Sender;
+use Atto\Router;
 
 /**
  * Atto core class

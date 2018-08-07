@@ -3,7 +3,8 @@ namespace Atto\Blade;
 
 use Atto\Blade\Engines\Engine;
 
-class View {
+class View
+{
 
     /**
      * The view factory instance.
@@ -49,10 +50,11 @@ class View {
      * @param  string  $path
      * @param  array   $data
      */
-    public function __construct(Factory $factory, Engine $engine, $view, $path, $data = []) {
-        $this->view    = $view;
-        $this->path    = $path;
-        $this->engine  = $engine;
+    public function __construct(Factory $factory, Engine $engine, $view, $path, $data = [])
+    {
+        $this->view = $view;
+        $this->path = $path;
+        $this->engine = $engine;
         $this->factory = $factory;
 
         $this->data = (array) $data;
@@ -63,14 +65,15 @@ class View {
      *
      * @return string
      */
-    public function render() {
+    public function render()
+    {
         $contents = $this->renderContents();
 
         // Once we have the contents of the view, we will flush the sections if we are
         // done rendering all Views so that there is nothing left hanging over when
         // another view gets rendered in the future by the Application developer.
         if ($this->factory->doneRendering()) {
-        	$this->factory->flushSections();
+            $this->factory->flushSections();
         }
 
         return $contents;
@@ -81,7 +84,8 @@ class View {
      *
      * @return string
      */
-    protected function renderContents() {
+    protected function renderContents()
+    {
         // We will keep track of the amount of Views being rendered so we can flush
         // the section after the complete rendering operation is done. This will
         // clear out the sections for any separate Views that may be rendered.
@@ -102,9 +106,10 @@ class View {
      *
      * @return string
      */
-    protected function getContents() {
-    	$data = array_merge($this->factory->getShared(), $this->data);
-    	
+    protected function getContents()
+    {
+        $data = array_merge($this->factory->getShared(), $this->data);
+
         return $this->engine->get($this->path, $data);
     }
 
@@ -113,7 +118,8 @@ class View {
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->render();
     }
 }
