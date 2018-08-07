@@ -26,9 +26,9 @@ class HomeController extends ApplicationController
      */
     public function index()
     {
-        $model = new I18nCode();
+        $model     = new I18nCode();
         $languages = $model->getLanguages();
-        $acronyms = $model->getAcronyms();
+        $acronyms  = $model->getAcronyms();
 
         // Create a new View
         return $this->view('home.index', compact('languages', 'acronyms'));
