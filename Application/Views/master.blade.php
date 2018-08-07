@@ -18,6 +18,9 @@
     <link href="{{ $link->resource('css/bootstrap-3.3.7.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
+    <link href="{{ $link->resource('css/hold-on.css') }}" rel="stylesheet">
+    
+    <!-- Custom styles for this template -->
     <link href="{{ $link->resource('css/application.css') }}" rel="stylesheet">
 
   </head>
@@ -25,7 +28,7 @@
   <body>
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -34,7 +37,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Application</a>
+          <a class="navbar-brand" href="#"><i class="fa fa-list-alt" aria-hidden="true"></i> Application</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -65,6 +68,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="{{ $link->resource('js/jquery-1.12.4.js') }}"></script>
     <script src="{{ $link->resource('js/bootstrap-3.3.7.js') }}"></script>
+    <script src="{{ $link->resource('js/hold-on.js') }}"></script>
     <script src="{{ $link->resource('js/application.js') }}"></script>
   </body>
 </html>

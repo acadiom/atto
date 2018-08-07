@@ -17,7 +17,6 @@ html {
     background-color: #f5f5f5;
   }
   
-
   /* Custom page CSS
   -------------------------------------------------- */
   /* Not required for template or sticky footer method. */
@@ -31,21 +30,12 @@ html {
     padding-left: 15px;
   }
 
+  a > i.fa {
+    padding-right: .5em;
+  }
+
   .table > tbody > tr > td {
     vertical-align: middle;
   }
 
-  .form-group {
-    margin-right: 25px;
-  }
-
-  .form-group > .form-control {
-    margin-left: 15px;
-  }
   
-  .form-group > .input-sm {
-    width: 100px;
-  }
-  .form-group > input.input-sm {
-    width: 300px;
-  }

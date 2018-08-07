@@ -21,6 +21,12 @@
 
 $routes = [
     ['GET', '/', 'Application\\Controllers\\HomeController::index', 'home'],
+    ['POST', '/search', 'Application\\Ajax\\CodeController::search', 'code.search'],
+
+
+
+
+
     ['GET', '/codes', 'Application\\Ajax\\CodeController::index', 'codes.index'],
 
     ['GET', '/acronyms', 'Application\\Ajax\\CodesController::acronyms', 'acronyms'],

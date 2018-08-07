@@ -21,39 +21,26 @@ class CodeController extends ApplicationController
     }
 
     /**
-     * Undocumented function
+     * Search ajax 
      *
      * @return void
      */
-    public function index()
+    public function search()
     {
-        $model    = new I18nCode();
-        
-        $codeList = $model->search();
+        $code = $_POST['code'];
+        $i18nCodes = (new I18nCode())->search($code);
 
-        // Create pagination data
-
-
-        return $this->ajax($codeList);
-    }
-    
-    public function languages()
-    {
-        $model     = new I18nCode();
-        $languages = $model->getLanguages();
-
-        // Create pagination data
-        return $this->ajax($languages);
+        return $this->ajax($i18nCodes);
     }
 
-    public function acronyms()
-    {
-        $model    = new I18nCode();
-        $acronyms = $model->getAcronyms();
 
-        // Create pagination data
-        return $this->ajax($acronyms);
-    }
+
+
+
+
+
+
+
 
     /**
      * Parses the file and returns the json

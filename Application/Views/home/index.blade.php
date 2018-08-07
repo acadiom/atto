@@ -8,25 +8,31 @@
     <!-- Search form component -->
     @include('components.search-form')
 
-    <table class="table table-striped table-hover">
+    <table id="table" class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Acronym</th>
-                <th>Code</th>
+                <th class="visible-sm visible-md visible-lg">Acronym</th>
+                <th class="visible-sm visible-md visible-lg">Code</th>
                 <th>Concatenated</th>
-                <th>Language</th>		
+                <th class="visible-sm visible-md visible-lg">Language</th>		
                 <th>Description</th>			
             </tr>
         </thead>
-        <tbody>
+        <tbody id="table-body">
+            @forelse($i18nCodes['codeList'] as $i18nCode)
             <tr>
-                <td><a href="#">TARSAN</a></td>
-                <td>00001</td>
-                <td>TARSAN_00001</td>
-                <td> es-ES</td>
-                <td>El usuario no tiene permisos para ejecutar la operaci&oacuten.</td>
+                <td class="visible-sm visible-md visible-lg"><a href="#">{{ $i18nCode->acronym }}</a></td>
+                <td class="visible-sm visible-md visible-lg">{{ $i18nCode->code }}</td>
+                <td>{{ $i18nCode->acronym_code }}</td>
+                <td class="visible-sm visible-md visible-lg">{{ $i18nCode->language }}</td>
+                <td>{{ $i18nCode->message }}</td>
             </tr>
+            @empty
+            <tr>
+                <td colspan="5">There are no codes matching your search criteria.</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
-    
+
 @stop

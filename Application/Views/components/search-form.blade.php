@@ -1,42 +1,30 @@
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
 
     <div class="panel-heading">
         <h2 class="panel-title"><i class="fa fa-filter" aria-hidden="true"></i> Error codes filter</h2>
     </div>
 
     <div class="panel-body">
-        <div class="form-filter pull-left">
-            <form class="form-inline" role="form">
-                <!-- Acronym - Todo: Get unique acronyms from database -->
-                <div class="form-group">
-                    <label for="acronym">Acronym</label>
-                    <select class="form-control input-sm" id="search-acronym">
-                        <option value=""> Any</option>
-                        @foreach ($acronyms as $acronym)
-                            <option value="{{ $acronym }}">{{ $acronym }}</option>
-                        @endforeach
-                    </select>
+        <div class="row">
+            <div class="form-filter col-sm-7 col-md-8">
+                <form id="search-form" class="form" role="form">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" id="search-code" autocomplete="off" placeholder="Search e.g. acronym_02000321">
+                        </div>
+                    </div>
+                </form>
+            </div>
+    
+            <!-- Create and load buttons -->
+            <div class="text-right form-filter col-sm-5 col-md-4">
+                <div class="btn-group btn-group">
+                    <a href="#" class="btn btn-default" id="btn-create-code"><i class="fa fa-pencil" aria-hidden="true"></i> Create code</a>
+                    <a href="#" class="btn btn-default" id="btn-load-file"><i class="fa fa-file-code-o" aria-hidden="true"></i> Load file</a>
                 </div>
-                <!-- Language - Todo: Get unique languages from database -->
-                <div class="form-group">
-                    <label for="language">Language</label>
-                    <select class="form-control input-sm" id="search-language">
-                        <option> Any</option>
-                        @foreach ($languages as $language)
-                            <option value="{{ $language }}">{{ $language }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="code">Code</label>
-                    <input type="text" class="form-control input-sm" id="search-code" placeholder="0701201">
-                </div>
-            </form>
-        </div>
-
-        <div class="text-right form-filter">
-            <button class="btn btn-primary" type="button" id="toggleCreateCode"><i class="fa fa-pencil" aria-hidden="true"></i> Create code</button>
+            </div>
         </div>
     </div>
 </div>

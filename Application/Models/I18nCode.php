@@ -311,77 +311,67 @@ class I18nCode extends ApplicationModel
     }
 
     /**
+     * Returns the results count for the search criteria
+     *
+     * @param string $code
+     * 
+     * @return integer
+     */
+    protected function searchResults($code = '')
+    {
+        $query  = 'SELECT COUNT(*) ';
+        $query .= 'FROM ';
+        $query .= $this->getTableName() . ' ';
+        $query .= 'WHERE ';
+        $query .= 'acronym_code like ? AND ';
+        // Only active codes are allowed
+        $query .= 'deleted = ? ';
+
+        $this->database->prepare($query);
+        if ( ! $this->database->execute('ss', "%$code%", 'N')) {
+            throw new \RuntimeException($this->database->getErrorCode());
+        }
+
+        return $this->database->fetchValue();
+    }
+
+    /**
      * Search codes 
      *
-     * @param string $acronym
-     * @param string $language
      * @param string $code
      * @param integer $limit
      * @param integer $offset
      * 
      * @return array List of codes
      */
-    public function search($acronym = '', $language = '', $code = '', $limit = 50, $offset = 0)
+    public function search($code = '', $limit = 50, $offset = 0)
     {
-        $types  = '';
-        $params = [];
-
         $query  = 'SELECT id, acronym, data_type, language, code, acronym_code, message, deleted, created_at, updated_at ';
         $query .= 'FROM ';
         $query .= $this->getTableName() . ' ';
         $query .= 'WHERE ';
-
-        // Check for acronym filter
-        if ($acronym !== '') {
-            $query .= 'acronym = ? AND ';
-            $types .= 's';
-            $params[] = $acronym;
-        }
-
-        // Check for language code
-        if ($language !== '') {
-            $query .= 'language = ? AND ';
-            $types .= 's';
-            $params[] = $language;
-        }
-
-        // Check for the code filter
-        if ($code !== '') {
-            $query .= 'code like ? AND ';
-            $types .= 's';
-            $params[] = "%$code%";
-        }
-
+        $query .= 'acronym_code LIKE ? AND ';
+        
         // Only active codes are allowed
         $query .= 'deleted = ? ';
-        $types .= 's';
-        $params[] = 'N';
-
-        // Get total results
-        $this->database->prepare($query);
-        $this->database->execute($types, ...$params);
-        $totalResults = $this->database->resultsCount();
 
         // Order and limit the results
         $query .= 'ORDER BY code DESC, created_at DESC ';
         $query .= 'LIMIT ? OFFSET ?';
 
-        $types .= 'i';
-        $params[] = $limit;
-
-        $types .= 'i';
-        $params[] = $offset;
-
         // Prepare the statement
         $this->database->prepare($query);
-        $this->database->bindArray($types, $params);
 
-        if ($this->database->execute() === false) {
+        // Bind and execute the query
+        if ($this->database->execute('ssii', "%$code%", 'N', $limit, $offset) === false) {
             throw new \RuntimeException($this->database->getError());
         }
 
-        $results['totalResults'] = $totalResults;
+        // Store the results
         $results['codeList'] = $this->database->fetchObject();
+
+        // Store the results count
+        $results['totalResults'] = $this->searchResults($code);
 
         return $results;
     }
