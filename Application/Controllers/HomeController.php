@@ -2,9 +2,9 @@
 namespace Application\Controllers;
 
 use Application\ApplicationController;
+use Application\Models\I18nCode;
 use Atto\Http\Message\Request;
 use Atto\Http\Message\Response;
-use Application\Models\I18nCode;
 
 class HomeController extends ApplicationController
 {

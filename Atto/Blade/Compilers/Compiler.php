@@ -3,10 +3,6 @@ namespace Atto\Blade\Compilers;
 
 class Compiler
 {
-<<<<<<< HEAD
-
-=======
->>>>>>> d7c2ae97a7f35504f2811638db551feb93763c8f
     /**
      * The file currently being compiled.
      *
@@ -135,11 +131,7 @@ class Compiler
             $this->setPath($path);
         }
 
-<<<<<<< HEAD
         if (!is_null($this->cachePath)) {
-=======
-        if ( ! is_null($this->cachePath)) {
->>>>>>> d7c2ae97a7f35504f2811638db551feb93763c8f
             $contents = $this->compileString(file_get_contents($this->getPath()));
 
             file_put_contents($this->getCompiledPath($this->getPath()), $contents);

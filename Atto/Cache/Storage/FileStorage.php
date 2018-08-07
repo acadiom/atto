@@ -35,7 +35,7 @@ class FileStorage implements Storage {
             $directory = Config::getProperty('cache.directory');
         }
 
-		if (!is_dir($directory) && !@mkdir($directory, 0777, true)) {
+		if ( ! is_dir($directory) && !@mkdir($directory, 0777, true)) {
 			throw new \InvalidArgumentException("The directory $directory is invalid.");
 		}
 

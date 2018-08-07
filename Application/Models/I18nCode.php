@@ -2,6 +2,8 @@
 namespace Application\Models;
 
 use Application\ApplicationModel;
+use Atto\Cache\Cache;
+use Atto\Cache\storage\FileStorage;
 
 /**
  * I18n Code Model class
@@ -91,7 +93,7 @@ class I18nCode extends ApplicationModel
      * Model constructor
      */
 	public function __construct() {
-		parent::__construct();
+        parent::__construct();
 	}
 
     /**
@@ -272,12 +274,16 @@ class I18nCode extends ApplicationModel
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-
     }
 
 
     public function getLanguages()
-    { 
+    {
+        // New cache with 7 days expiration time
+        $cache = new Cache(new FileStorage(), 7 * 24 * 60 * 60);
+
+        
+
         $query  = 'SELECT DISTINCT(language) AS language FROM ';
         $query .= $this->getTableName() . ' ';
         $query .= 'ORDER BY language';
