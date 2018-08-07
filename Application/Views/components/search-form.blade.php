@@ -12,12 +12,10 @@
                 <div class="form-group">
                     <label for="acronym">Acronym</label>
                     <select class="form-control input-sm" id="search-acronym">
-                        <option> Any</option>
-                        <option value="BAMOBI">BAMOBI</option>
-                        <option value="MOEMCL">MOEMCL</option>
-                        <option value="TOUCID">TOUCID</option>
-                        <option>TRASAN</option>
-                        <option>TARSAN</option>
+                        <option value=""> Any</option>
+                        @foreach ($acronyms as $acronym)
+                            <option value="{{ $acronym }}">{{ $acronym }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <!-- Language - Todo: Get unique languages from database -->
@@ -25,15 +23,14 @@
                     <label for="language">Language</label>
                     <select class="form-control input-sm" id="search-language">
                         <option> Any</option>
-                        <option> es-ES</option>
-                        <option> ga-ES</option>
-                        <option> ca-CA</option>
-                        <option> en-US</option>
+                        @foreach ($languages as $language)
+                            <option value="{{ $language }}">{{ $language }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="code">Code</label>
-                    <input type="text" class="form-control input-sm" id="code" placeholder="0701201">
+                    <input type="text" class="form-control input-sm" id="search-code" placeholder="0701201">
                 </div>
             </form>
         </div>
