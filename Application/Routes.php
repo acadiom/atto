@@ -30,11 +30,8 @@
  */
 
 $routes = [
-<<<<<<< HEAD
-    ['GET', '/', 'Application\\Controllers\\HomeController::index', 'homepage'],
-    ['GET', '/codes', 'Application\\Ajax\\CodeController::index', 'codes.index']
-=======
     ['GET', '/', 'Application\\Controllers\\HomeController::index', 'home'],
+    ['GET', '/codes', 'Application\\Ajax\\CodeController::index', 'codes.index'],
 
     ['GET', '/acronyms', 'Application\\Ajax\\CodesController::acronyms', 'acronyms'],
     ['GET', '/languages', 'Application\\Ajax\\CodesController::languages', 'languages'],
@@ -42,7 +39,6 @@ $routes = [
     ['GET', '/codes', 'Application\\Ajax\\CodesController::list', 'codes-list'],
     ['GET', '/file', 'Application\\Ajax\\CodesController::getFile', 'file'],
     ['GET', '/query', 'Application\\Ajax\\CodesController::getQuery', 'query']
->>>>>>> d7c2ae97a7f35504f2811638db551feb93763c8f
 ];
 
 // Returns the configured routes
