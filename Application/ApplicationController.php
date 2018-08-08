@@ -7,6 +7,7 @@ use Atto\Controller;
 use Atto\Http\Message\Request;
 use Atto\Http\Message\Response;
 use Atto\Libraries\Router;
+use Atto\Logger;
 use Atto\Session\Handlers\File;
 use Atto\Session\Session;
 
@@ -42,6 +43,13 @@ abstract class ApplicationController extends Controller
     protected $link;
 
     /**
+     * Logger instance
+     *
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * ApplicationController constructor.
      *
      * @param Request $request
@@ -56,6 +64,9 @@ abstract class ApplicationController extends Controller
 
         // Session set up
         $this->session = new Session(new File(Config::getProperty('session.directory')));
+
+        // Logger set up
+        $this->logger = new Logger();
 
         // Link helper set up
         $this->data['link'] = new LinkHelper();

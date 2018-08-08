@@ -21,7 +21,7 @@ return [
 		'error.handler'			  => null,
 		'exception.handler'		  => null,
 
-		// Cache configuration
+		// Cache configuration, ttl in seconds
 		'cache.ttl'       => 10,
         'cache.directory' => DIRECTORY_ROOT_CACHE,
         
@@ -33,7 +33,7 @@ return [
 		'views.cache' => DIRECTORY_ROOT_CACHE,
 
 		// Logger configuration
-		'logs.level' => 15,
+		'logs.level'     => 15,
 		'logs.directory' => DIRECTORY_ROOT_LOGS,
 		'logs.filesize'  => 500 * 1024, // 500 KB each log file
 

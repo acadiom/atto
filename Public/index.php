@@ -1,5 +1,9 @@
 <?php
 
+use Atto\Logger;
+
+$start = microtime(true);
+
 // Root directory and sub-directories
 define('DIRECTORY_ROOT', realpath('..') . '/');
 define('DIRECTORY_ROOT_ATTO', DIRECTORY_ROOT . 'Atto/');
@@ -30,3 +34,7 @@ $atto->registerRoutes($routes);
 
 // Run the application
 $atto->run();
+
+// Todo, remove this logger
+$logger = new Logger();
+$logger->debug("Total execution time: " . (microtime(true) - $start));
