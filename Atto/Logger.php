@@ -69,11 +69,11 @@ class Logger
      * @param $level
      * @param $directory
      */
-    public function __construct($directory = null, $filesize = null, $level = self::ALL)
+    public function __construct($directory = null, $filesize = null, $level = null)
     {
         $this->directory = $directory === null ? Config::getProperty('logs.directory') : $directory;
         $this->filesize  = $filesize  === null ? Config::getProperty('logs.filesize')  : $filesize;
-        $this->logLevel  = $level;
+        $this->logLevel  = $level     === null ? Config::getProperty('logs.level')     : $level;
     }
 
     /**

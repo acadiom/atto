@@ -64,7 +64,7 @@ abstract class ApplicationController extends Controller
 
         // Session set up
         $this->session = new Session(new File(Config::getProperty('session.directory')));
-
+        
         // Logger set up
         $this->logger = new Logger();
 

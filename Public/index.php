@@ -37,4 +37,4 @@ $atto->run();
 
 // Todo, remove this logger
 $logger = new Logger();
-$logger->debug("Total execution time: " . (microtime(true) - $start));
+$logger->info("Total execution time: " . (microtime(true) - $start));
