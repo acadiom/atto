@@ -25,7 +25,7 @@ $routes = [
     ['GET', '/clear-cache', 'Application\\Ajax\\CodeController::clearCache', 'clear-cache'],
 
 
-    ['GET', '/query', 'Application\\Controllers\\FileController::getQuery', 'query'],
+    ['GET', '/query', 'Application\\Controllers\\FileController::getQuery', 'query']
     
 ];
 
