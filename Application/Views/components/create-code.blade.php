@@ -24,7 +24,7 @@
               <div class="form-group">
                 <label for="acronym" class="col-lg-2 control-label">Acronym</label>
                 <div class="col-lg-10">
-                  <input type="text" class="form-control input-sm" id="acronym" name="acronym">
+                  <input type="text" class="form-control input-sm" id="acronym" name="acronym" placeholder="acronym">
                 </div>
               </div>
 
@@ -32,7 +32,15 @@
               <div class="form-group">
                 <label for="code" class="col-lg-2 control-label">Code</label>
                 <div class="col-lg-10">
-                  <input type="text" class="form-control input-sm" id="code" name="code">
+                  <input type="text" class="form-control input-sm" id="code" name="code" placeholder="00000001">
+                </div>
+              </div>
+
+              <!-- Data type -->
+              <div class="form-group">
+                <label for="dataType" class="col-lg-2 control-label">Code</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control input-sm" id="dataType" name="dataType" value="CODIGO_ERROR_APP">
                 </div>
               </div>
 
@@ -40,7 +48,7 @@
               <div class="form-group">
                 <label for="language" class="col-lg-2 control-label">Language</label>
                 <div class="col-lg-10">
-                  <input type="text" class="form-control input-sm" id="language" name="language" placeholder=" es-ES">
+                  <input type="text" class="form-control input-sm" id="language" name="language" value=" es-ES">
                 </div>
               </div>
 

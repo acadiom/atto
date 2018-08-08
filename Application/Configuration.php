@@ -4,6 +4,9 @@
 */
 
 return [
+		// Application configuration, pagination limit
+		'application.pagination.limit' => 50,
+
 		// Application configuration - here you can configure you're own Application
         'application.environment' => 'development',
 		
@@ -35,7 +38,8 @@ return [
 		'logs.filesize'  => 500 * 1024, // 500 KB each log file
 
 		// Database configuration
-		'database.host'     => '127.0.0.1',
+		// "p:hostname" for persistent connection
+		'database.host'     => 'p:127.0.0.1',
 		'database.port'     => 3306,
 		'database.user'     => 'root',
 		'database.password' => '',

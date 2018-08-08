@@ -6,6 +6,9 @@ use Application\Helpers\FileParserHelper;
 use Application\Models\I18nCode;
 use Atto\Http\Message\Request;
 use Atto\Http\Message\Response;
+use Atto\Config;
+use Atto\Cache\Cache;
+use Atto\Cache\Storage\FileStorage;
 
 class CodeController extends ApplicationController 
 {
@@ -21,23 +24,52 @@ class CodeController extends ApplicationController
     }
 
     /**
+     * Clears the current cache storage
+     *
+     * @return void
+     */
+    public function clearCache()
+    {
+        $cache = new Cache(new FileStorage());
+        $cache->clear();
+
+        return $this->ajax(true);
+    }
+
+    /**
      * Search ajax 
      *
      * @return void
      */
     public function search()
     {
+        $offset = ! isset($_POST['offset']) || $_POST['offset'] == '' ? 0 : $_POST['offset'];
+        $limit = Config::getProperty('application.pagination.limit');
+
         try {
 
             $code = $_POST['code'];
-            $i18nCodes = I18nCode::search($code);
-    
+
+            // Create a cache key
+            $key = sha1($code . $limit . $offset);
+            // Cache instance
+            $cache = new Cache(new FileStorage());
+
+            // Lets search in cache for the current key / page
+            if (($i18nCodes = $cache->get($key)) === null) {
+                // Search again
+                $i18nCodes = I18nCode::search($code, $limit, $offset);
+
+                // Store the results in cache
+                $cache->store($key, $i18nCodes); 
+            }
+
             return $this->ajax($i18nCodes);
 
         } catch (\Exception $e) {
 
             $returnValue = [];
-            $returnValue['code'] = $e->getCode();
+            $returnValue['code']    = $e->getCode();
             $returnValue['message'] = $e->getMessage();
 
             // Error trying to connect to the database server: 
@@ -49,52 +81,4 @@ class CodeController extends ApplicationController
 
     }
 
-
-
-
-
-
-
-
-
-
-    /**
-     * Parses the file and returns the json
-     *
-     * @return void
-     */
-    public function getFile()
-    {
-        $fileParser = new FileParserHelper(DIRECTORY_ROOT_LOGS . "Codigos_Error_TARSAN_Pre.csv");
-
-        // Return parsed file
-        return $this->ajax($fileParser->parse());
-    }
-
-    public function getQuery() 
-    {
-        $fileParser = new FileParserHelper(DIRECTORY_ROOT_LOGS . "Codigos_Error_TARSAN_Pre.csv");
-        $codes = $fileParser->parse();
-
-        $query = "INSERT INTO i18n_codes(acronym, data_type, language, code, acronym_code, message) VALUES ";
-
-        foreach ($codes as $code) {
-
-            $query .= " ('";
-
-            $query .= $code['acronym'] . '\', \'';
-            $query .= $code['data_type'] . '\', \'';
-            $query .= $code['language'] . '\', \'';
-            $query .= $code['code'] . '\', \'';
-            $query .= $code['acronym_code'] . '\', \'';
-            $query .= $code['message'] . '\'';
-
-            $query .= "),";
-
-        }
-
-        $query  = substr($query, 0, -1);
-
-        return $this->ajax($query);
-    }
 }

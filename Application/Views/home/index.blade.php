@@ -5,6 +5,9 @@
     <!-- Create code modal form component -->
     @include('components.create-code')
 
+    <!-- Create error message component -->
+    @include('components.error-message')
+
     <!-- Search form component -->
     @include('components.search-form')
 
@@ -19,19 +22,9 @@
             </tr>
         </thead>
         <tbody id="table-body">
-            @forelse($i18nCodes['codeList'] as $i18nCode)
-            <tr>
-                <td class="visible-sm visible-md visible-lg"><a href="#">{{ $i18nCode->acronym }}</a></td>
-                <td class="visible-sm visible-md visible-lg">{{ $i18nCode->code }}</td>
-                <td>{{ $i18nCode->acronym_code }}</td>
-                <td class="visible-sm visible-md visible-lg">{{ $i18nCode->language }}</td>
-                <td>{{ $i18nCode->message }}</td>
-            </tr>
-            @empty
             <tr>
                 <td colspan="5">There are no codes matching your search criteria.</td>
             </tr>
-            @endforelse
         </tbody>
     </table>
 

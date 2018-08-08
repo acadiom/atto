@@ -36,4 +36,9 @@ interface Storage {
 	 * @return Item
 	 */
 	public function getItem($key);
+
+	/**
+	 * Clears the entire folder
+	 */
+	public function clear();
 }

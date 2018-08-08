@@ -295,7 +295,11 @@ class I18nCode extends ApplicationModel
 
         static::database()->prepare($query);
         if ( ! static::database()->execute('ss', "%$code%", 'N')) {
-            throw new \RuntimeException(static::database()->getErrorCode());
+            
+            $message = static::database()->getError();
+            $code    = static::database()->getErrorCode();
+
+            throw new \Exception($message, $code);
         }
 
         return static::database()->fetchValue();
@@ -322,7 +326,7 @@ class I18nCode extends ApplicationModel
         $query .= 'deleted = ? ';
 
         // Order and limit the results
-        $query .= 'ORDER BY code DESC, created_at DESC ';
+        $query .= 'ORDER BY acronym, code DESC, created_at DESC ';
         $query .= 'LIMIT ? OFFSET ?';
 
         // Prepare the statement
@@ -330,7 +334,10 @@ class I18nCode extends ApplicationModel
 
         // Bind and execute the query
         if (static::database()->execute('ssii', "%$code%", 'N', $limit, $offset) === false) {
-            throw new \RuntimeException(static::database()->getError());
+            $message = static::database()->getError();
+            $code    = static::database()->getErrorCode();
+
+            throw new \Exception($message, $code);
         }
 
         // Store the results
@@ -338,6 +345,16 @@ class I18nCode extends ApplicationModel
 
         // Store the results count
         $results['totalResults'] = static::searchResults($code);
+
+        // Pagination data
+        if ($results['totalResults'] > ($offset + $limit)) {
+            // We have a next page 
+            $results['moreData'] = true;
+            $results['offset'] = $offset + $limit;
+        } else {
+            $results['moreData'] = false;
+            $results['offset'] = $offset;
+        }
 
         return $results;
     }

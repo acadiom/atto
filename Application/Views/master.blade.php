@@ -62,6 +62,13 @@
       </div>
     </footer>
 
+    <script>
+        function link(path) {
+            return '{{ $link->basepath() }}' + path;
+        }
+    </script>
+
+    @yield('javascript')
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

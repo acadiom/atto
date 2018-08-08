@@ -42,6 +42,16 @@ class LinkHelper
     }
 
     /**
+     * Returns the basepath of the application
+     *
+     * @return string
+     */
+    public function basepath() 
+    {
+        return $this->basepath;
+    }
+
+    /**
      * Generate a URL from a route name.
      *
      * @param $name

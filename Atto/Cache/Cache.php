@@ -87,4 +87,12 @@ class Cache {
 	public function invalidate($key) {
 		$this->storage->delete($key);
 	}
+
+	/**
+	 * Clears the entire cache storage
+	 */
+	public function clear()
+	{
+		$this->storage->clear();
+	}
 }

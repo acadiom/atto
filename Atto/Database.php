@@ -418,4 +418,15 @@ class Database {
         return $this->formatOutput($this->results[$row], $output);
     }
 
+    /**
+     * Escapes a string for safe usage in a query
+     *
+     * @param string $string
+     * 
+     * @return string
+     */
+    public function escape($string) 
+    {
+        return mysqli_real_escape_string($this->connection, $string);
+    }
 }

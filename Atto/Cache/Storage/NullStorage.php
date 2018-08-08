@@ -1,5 +1,5 @@
 <?php
-namespace Atto\Cache\storage;
+namespace Atto\Cache\Storage;
 
 use Atto\Cache\Item;
 use Atto\Cache\Storage;

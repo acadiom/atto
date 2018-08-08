@@ -2,7 +2,6 @@
 namespace Application\Controllers;
 
 use Application\ApplicationController;
-use Application\Models\I18nCode;
 use Atto\Http\Message\Request;
 use Atto\Http\Message\Response;
 
@@ -26,9 +25,7 @@ class HomeController extends ApplicationController
      */
     public function index()
     {
-        $i18nCodes = I18nCode::search('');
-
         // Create a new View
-        return $this->view('home.index', compact('i18nCodes'));
+        return $this->view('home.index');
     }
 }

@@ -12,7 +12,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" id="search-code" autocomplete="off" placeholder="Search e.g. acronym_02000321">
+                            <input type="search" class="form-control" id="search-code" autocomplete="off" placeholder="Search e.g. acronym_02000321">
                         </div>
                     </div>
                 </form>
