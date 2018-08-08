@@ -107,7 +107,7 @@ class Database {
         );
 
         if ($connected === false) {
-            throw new \Exception("Error trying to connect to the database server: " . mysqli_connect_error());
+            throw new \Exception("Error trying to connect to the database server: " . mysqli_connect_error(), mysqli_connect_errno());
         }
 
         if (@mysqli_set_charset($this->connection, Config::getProperty('database.charset')) === false) {

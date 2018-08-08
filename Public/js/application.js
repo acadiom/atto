@@ -62,12 +62,13 @@ $('#search-form').submit(function(event) {
     });
 
     // Callback handler that will be called on failure
-    request.fail(function (jqXHR, textStatus, errorThrown){
+    request.fail(function (jqXHR, textStatus, errorThrown) {
         // Log the error to the console
         console.error(
             "The following error occurred: " +
             textStatus, errorThrown
         );
+        console.error(jqXHR);
     });
 
 });

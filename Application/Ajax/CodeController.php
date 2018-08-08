@@ -27,10 +27,26 @@ class CodeController extends ApplicationController
      */
     public function search()
     {
-        $code = $_POST['code'];
-        $i18nCodes = I18nCode::search($code);
+        try {
 
-        return $this->ajax($i18nCodes);
+            $code = $_POST['code'];
+            $i18nCodes = I18nCode::search($code);
+    
+            return $this->ajax($i18nCodes);
+
+        } catch (\Exception $e) {
+
+            $returnValue = [];
+            $returnValue['code'] = $e->getCode();
+            $returnValue['message'] = $e->getMessage();
+
+            // Error trying to connect to the database server: 
+            // Only one usage of each socket address (protocol/network address/port) is normally permitted.
+            // Todo: Implement a error response ajax
+            return $this->ajax($returnValue, "HTTP/1.1 500 Internal Server Error");
+
+        }
+
     }
 
 

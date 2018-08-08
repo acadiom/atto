@@ -58,12 +58,13 @@ abstract class Controller
      * Generates a ajax response
      *
      * @param mixed $object
+     * @param string $header The response code header
      *
      * @return Response
      */
-    protected function ajax($object): Response
+    protected function ajax($object, $header = "HTTP/1.1 200 OK"): Response
     {
-        $this->response->addHeader("HTTP/1.1 200 OK");
+        $this->response->addHeader($header);
         $this->response->addHeader('Content-type: application/json; charset=utf-8');
         $this->response->setBody(json_encode($object));
 
