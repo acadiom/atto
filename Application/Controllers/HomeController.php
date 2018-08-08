@@ -26,7 +26,7 @@ class HomeController extends ApplicationController
      */
     public function index()
     {
-        $i18nCodes = (new I18nCode())->search('');
+        $i18nCodes = I18nCode::search('');
 
         // Create a new View
         return $this->view('home.index', compact('i18nCodes'));

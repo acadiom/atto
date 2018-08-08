@@ -4,7 +4,6 @@ namespace Application;
 use Atto\Config;
 use Atto\Logger;
 use Atto\Model;
-use Atto\Database;
 
 /**
  * ApplicationModel class
@@ -15,55 +14,22 @@ use Atto\Database;
  * @version   v1.0
  */
 abstract class ApplicationModel extends Model {
-	
-	/**
-	 * Table name
-	 *
-	 * @var string
-	 */
-	protected $tableName = null;
-	
+
 	/**
 	 * Logger instance
 	 * 
 	 * @var Logger
 	 */
 	protected $log;
-	
-	/**
-	 * Database driver
-	 * 
-	 * @var Database
-	 */
-	protected $database;
 
     /**
      * Application model constructor
      */
 	public function __construct() {
-		parent::__construct();
-		
-		// Create database connection
-		$this->database = static::getConnection();
-		
 		// Create logger instance
 		$this->log = static::getLogger();
 	}
-	
-	/**
-	 * Creates database connection
-	 */
-	protected static function getConnection() {
-		static $database;
-		
-		// Create database connection
-		if ($database === null) {
-			$database = new Database();
-		}
-		
-		return $database;
-	}
-	
+
 	/**
 	 * Creates logger object
 	 */
@@ -78,19 +44,4 @@ abstract class ApplicationModel extends Model {
 		return $logger;
 	}
 	
-	/**
-	 * This simple method must return the table name
-	 * 
-	 * @return string
-	 */
-	public function getTableName() {
-		if ($this->tableName === null) {
-			throw new \Exception('No table name defined for the model: ' . get_class($this));
-		}
-		
-		// Get configured table prefix
-		$tablePrefix = Config::getProperty('application.table.prefix');
-		
-		return ($tablePrefix === null) ? $this->tableName : $tablePrefix . $this->tableName;
-	}
 }

@@ -87,7 +87,7 @@ class I18nCode extends ApplicationModel
 	 *
 	 * @var string
 	 */
-    protected $tableName = 'i18n_codes';
+    protected static $table = 'i18n_codes';
     
     /**
      * Model constructor
@@ -276,40 +276,6 @@ class I18nCode extends ApplicationModel
         return $this->updatedAt;
     }
 
-
-    public function getLanguages()
-    {
-        // New cache with 7 days expiration time
-        $cache = new Cache(new FileStorage(), 7 * 24 * 60 * 60);
-
-        
-
-        $query  = 'SELECT DISTINCT(language) AS language FROM ';
-        $query .= $this->getTableName() . ' ';
-        $query .= 'ORDER BY language';
-
-        $this->database->prepare($query);
-        if ($this->database->execute()) {
-            return $this->database->fetchColumn(0);
-        }
-
-        return [];
-    }
-
-    public function getAcronyms()
-    { 
-        $query  = 'SELECT DISTINCT(acronym) AS acronym FROM ';
-        $query .= $this->getTableName() . ' ';
-        $query .= 'ORDER BY acronym';
-
-        $this->database->prepare($query);
-        if ($this->database->execute()) {
-            return $this->database->fetchColumn(0);
-        }
-
-        return [];
-    }
-
     /**
      * Returns the results count for the search criteria
      *
@@ -317,22 +283,22 @@ class I18nCode extends ApplicationModel
      * 
      * @return integer
      */
-    protected function searchResults($code = '')
+    protected static function searchResults($code = '')
     {
         $query  = 'SELECT COUNT(*) ';
         $query .= 'FROM ';
-        $query .= $this->getTableName() . ' ';
+        $query .= static::tableName() . ' ';
         $query .= 'WHERE ';
         $query .= 'acronym_code like ? AND ';
         // Only active codes are allowed
         $query .= 'deleted = ? ';
 
-        $this->database->prepare($query);
-        if ( ! $this->database->execute('ss', "%$code%", 'N')) {
-            throw new \RuntimeException($this->database->getErrorCode());
+        static::database()->prepare($query);
+        if ( ! static::database()->execute('ss', "%$code%", 'N')) {
+            throw new \RuntimeException(static::database()->getErrorCode());
         }
 
-        return $this->database->fetchValue();
+        return static::database()->fetchValue();
     }
 
     /**
@@ -344,11 +310,11 @@ class I18nCode extends ApplicationModel
      * 
      * @return array List of codes
      */
-    public function search($code = '', $limit = 50, $offset = 0)
+    public static function search($code = '', $limit = 50, $offset = 0)
     {
         $query  = 'SELECT id, acronym, data_type, language, code, acronym_code, message, deleted, created_at, updated_at ';
         $query .= 'FROM ';
-        $query .= $this->getTableName() . ' ';
+        $query .= static::tableName() . ' ';
         $query .= 'WHERE ';
         $query .= 'acronym_code LIKE ? AND ';
         
@@ -360,18 +326,18 @@ class I18nCode extends ApplicationModel
         $query .= 'LIMIT ? OFFSET ?';
 
         // Prepare the statement
-        $this->database->prepare($query);
+        static::database()->prepare($query);
 
         // Bind and execute the query
-        if ($this->database->execute('ssii', "%$code%", 'N', $limit, $offset) === false) {
-            throw new \RuntimeException($this->database->getError());
+        if (static::database()->execute('ssii', "%$code%", 'N', $limit, $offset) === false) {
+            throw new \RuntimeException(static::database()->getError());
         }
 
         // Store the results
-        $results['codeList'] = $this->database->fetchObject();
+        $results['codeList'] = static::database()->fetchObject();
 
         // Store the results count
-        $results['totalResults'] = $this->searchResults($code);
+        $results['totalResults'] = static::searchResults($code);
 
         return $results;
     }

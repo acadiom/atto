@@ -28,7 +28,7 @@ class CodeController extends ApplicationController
     public function search()
     {
         $code = $_POST['code'];
-        $i18nCodes = (new I18nCode())->search($code);
+        $i18nCodes = I18nCode::search($code);
 
         return $this->ajax($i18nCodes);
     }
