@@ -38,14 +38,24 @@ class Atto
 	protected $router;
 
 	/**
+	 * Logger
+	 *
+	 * @var Logger
+	 */
+	protected $logger;
+
+	/**
 	 * Atto constructor
 	 */
 	public function __construct()
 	{
+		// Create and save a new router instance 
 		$this->router = new Router(Config::getProperty('application.basepath'));
-
-		// Save the router instance 
 		Config::addProperty(Router::class, $this->router);
+
+		// Create and save a new logger instance
+		$this->logger = new Logger();
+		Config::addProperty(Logger::class, $this->logger);
 	}
 
 	/**
@@ -57,10 +67,13 @@ class Atto
 		$this->response = new Response();
 
 		$method = $this->request->method();
-		$uri = $this->request->uri();
+		$uri    = $this->request->uri();
+		$this->logger->debug("Trying to dispatch uri [$uri] on method [$method]");
 
 		if (($match = $this->router->match($method, $uri)) === null) {
-			throw new \RuntimeException("404 Not found $uri", 10001);
+			// We must return an response
+			$this->logger->error("Route not found $uri", 404);
+			throw new \RuntimeException("404 Not found $uri", 404);
 		}
 
 		$closure = $match['action'];

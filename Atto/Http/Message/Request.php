@@ -114,6 +114,16 @@ class Request
     }
 
     /**
+     * Indicates if the current request is an ajax request
+     *
+     * @return boolean
+     */
+    public function isAjax()
+    {
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+    }
+
+    /**
      * Returns the client IP address
      *
      * @return mixed

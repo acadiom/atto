@@ -57,6 +57,7 @@ abstract class ApplicationController extends Controller
      */
     public function __construct(Request $request, Response $response)
     {
+        // Call parent constructor
         parent::__construct($request, $response); 
 
         // Store the router instance
@@ -66,7 +67,7 @@ abstract class ApplicationController extends Controller
         $this->session = new Session(new File(Config::getProperty('session.directory')));
         
         // Logger set up
-        $this->logger = new Logger();
+        $this->logger = Config::getProperty(Logger::class);
 
         // Link helper set up
         $this->data['link'] = new LinkHelper();

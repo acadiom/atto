@@ -33,7 +33,7 @@ return [
 		'views.cache' => DIRECTORY_ROOT_CACHE,
 
 		// Logger configuration (15 All, 7 Info, 3 Warn, 1 Error, 0 None)
-		'logs.level'     => 7,
+		'logs.level'     => 15,
 		'logs.directory' => DIRECTORY_ROOT_LOGS,
 		'logs.filesize'  => 500 * 1024, // 500 KB each log file
 

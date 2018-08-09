@@ -11,7 +11,6 @@ namespace Atto\Http\Message;
  */
 class Response
 {
-
     /**
      * @var array
      */
