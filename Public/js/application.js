@@ -70,7 +70,7 @@ search = function(clearTable, offset = 0) {
 
             eTable += "<tr>";
 
-            eTable += '<td class="visible-sm visible-md visible-lg"><a href="#">' + code.acronym + '</a></td>';
+            eTable += '<td class="visible-sm visible-md visible-lg"><strong>' + code.acronym + '</strong></td>';
             eTable += '<td class="visible-sm visible-md visible-lg">' + code.code + '</td>';
             eTable += '<td>' + code.acronym_code + '</td>';
             eTable += '<td class="visible-sm visible-md visible-lg">' + code.language + '</td>';
@@ -122,38 +122,3 @@ search = function(clearTable, offset = 0) {
         request = false;
     });
 };
-
-
-/**
- * Show modal on create new button click
- */
-$('#btn-create-code').on('click', function() {
-    $('#createCode').modal('show');
-});
-
-/**
- * Set the focus to the first input text
- */
-$('#createCode').on('shown.bs.modal', function() {
-    $('#concatenated').focus();
-});
-
-/**
- * Splits the text and populate the acronym and the code
- */
-$("#concatenated").keyup(function() {
-    var concatenated = this.value.split(/_(.*)/);
-    console.log(concatenated);
-    
-    // Set the acronym
-    $("#acronym").val(concatenated[0].toUpperCase());
-
-    if (concatenated.length > 1) {
-        // Set the code 
-        $("#code").val(concatenated[1]);
-    }
-
-});
-
-
-

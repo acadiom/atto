@@ -62,13 +62,12 @@
       </div>
     </footer>
 
+    <!-- Needed basepath -->
     <script>
         function link(path) {
             return '{{ $link->basepath() }}' + path;
         }
     </script>
-
-    @yield('javascript')
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -77,5 +76,8 @@
     <script src="{{ $link->resource('js/bootstrap-3.3.7.js') }}"></script>
     <script src="{{ $link->resource('js/hold-on.js') }}"></script>
     <script src="{{ $link->resource('js/application.js') }}"></script>
+
+    @yield('javascript')
+
   </body>
 </html>

@@ -9,6 +9,7 @@ use Atto\Http\Message\Response;
 use Atto\Config;
 use Atto\Cache\Cache;
 use Atto\Cache\Storage\FileStorage;
+use Atto\Validator;
 
 class CodeController extends ApplicationController 
 {
@@ -99,6 +100,73 @@ class CodeController extends ApplicationController
 
         }
 
+    }
+
+    public function create() 
+    {
+        // concatenated=ACRONY_000000022
+        // acronym=ACRONY
+        // code=000000022
+        // dataType=CODIGO_ERROR_APP
+        // language=+es-ES
+        // description=Usted+no+tiene+permisos+para+ejecutar+la+operaci%C3%B3n+solicitada.
+
+        if (true !== ($result = $this->validateFormData())) {
+
+            // Return the validation message
+            return $this->ajax($result);
+
+        }
+
+        $concatenated = $_POST['concatenated'];
+        $acronym = $_POST['acronym'];
+        $code = $_POST['code'];
+        $dataType = $_POST['dataType'];
+        $language = $_POST['language'];
+        $description = $_POST['description'];
+
+        return $this->ajax(true);
+
+    }
+
+    protected function validateFormData()
+    {
+        $validator = new Validator();
+        $validator['concatenated'] = [
+            'validate' => 'required|regex:/^[a-z0-9]{6}_[a-z0-9]+$/i',
+            'message' => 'The code must match the following regex: "/^[a-z0-9]{6}_[a-z0-9]+$/i", e.g. ABCDEF_000001'
+        ];
+
+        $validator['acronym'] = [
+            'validate' => 'regex:/^[A-Z0-9]{6}$/',
+            'message' => 'The acronym must have only 6 uppercase characters / numbers e.g. (ABC123)'
+        ];
+
+        $validator['code'] = [
+            'validate' => 'required',
+            'message' => 'The code is required'
+        ];
+
+        $validator['dataType'] = [
+            'validate' => 'required',
+            'message' => 'The data type is required, use CODIGO_ERROR_APP or CODIGO_MENSAJE_APP.'
+        ];
+
+        $validator['language'] = [
+            'validate' => 'required',
+            'message' => 'The language is required, use " es-ES" or " en-US".'
+        ];
+
+        $validator['description'] = [
+            'validate' => 'required',
+            'message' => 'The code message / description is required.'
+        ];
+
+        if ($validator->valid($_POST)) {
+            return true;
+        }
+
+        return $validator->getMessages();
     }
 
 }

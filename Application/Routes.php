@@ -24,6 +24,7 @@ $routes = [
     ['POST', '/search', 'Application\\Ajax\\CodeController::search', 'code.search'],
     ['GET', '/clear-cache', 'Application\\Ajax\\CodeController::clearCache', 'clear-cache'],
 
+    ['POST', '/create', 'Application\\Ajax\\CodeController::create', 'code.create'],
 
     ['GET', '/query', 'Application\\Controllers\\FileController::getQuery', 'query']
     
