@@ -24,7 +24,7 @@
               <div class="form-group">
                 <label for="acronym" class="col-lg-2 control-label">Acronym</label>
                 <div class="col-lg-10">
-                  <input type="text" class="form-control input-sm" id="acronym" name="acronym" placeholder="acronym">
+                  <input type="text" class="form-control input-sm" id="acronym" name="acronym" placeholder="acronym" autocomplete="off">
                 </div>
               </div>
 
@@ -32,7 +32,7 @@
               <div class="form-group">
                 <label for="code" class="col-lg-2 control-label">Code</label>
                 <div class="col-lg-10">
-                  <input type="text" class="form-control input-sm" id="code" name="code" placeholder="00000001">
+                  <input type="text" class="form-control input-sm" id="code" name="code" placeholder="00000001" autocomplete="off">
                 </div>
               </div>
 
