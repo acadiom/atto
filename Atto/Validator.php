@@ -26,7 +26,8 @@ namespace Atto;
  * @author    Andrei Alexandru Romila
  * @version   v1.0
  */
-class Validator implements \ArrayAccess {
+class Validator implements \ArrayAccess
+{
 
     /**
      * Validation rules
@@ -54,7 +55,8 @@ class Validator implements \ArrayAccess {
      *
      * @param array $rules
      */
-    public function __construct(array $rules = []) {
+    public function __construct(array $rules = [])
+    {
         $this->rules = $rules;
     }
 
@@ -62,38 +64,42 @@ class Validator implements \ArrayAccess {
      * {@inheritDoc}
      * @see ArrayAccess::offsetSet()
      */
-    public function offsetSet($offset, $value) {
-    	if (is_null($offset)) {
-    		$this->rules[] = $value;
-    	} else {
-    		$this->rules[$offset] = $value;
-    	}
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->rules[] = $value;
+        } else {
+            $this->rules[$offset] = $value;
+        }
     }
-    
+
     /**
      * {@inheritDoc}
      * @see ArrayAccess::offsetExists()
      */
-    public function offsetExists($offset) {
-    	return isset($this->rules[$offset]);
+    public function offsetExists($offset)
+    {
+        return isset($this->rules[$offset]);
     }
-    
+
     /**
      * {@inheritDoc}
      * @see ArrayAccess::offsetUnset()
      */
-    public function offsetUnset($offset) {
-    	unset($this->rules[$offset]);
+    public function offsetUnset($offset)
+    {
+        unset($this->rules[$offset]);
     }
-    
+
     /**
      * {@inheritDoc}
      * @see ArrayAccess::offsetGet()
      */
-    public function offsetGet($offset) {
-    	return isset($this->rules[$offset]) ? $this->rules[$offset] : null;
+    public function offsetGet($offset)
+    {
+        return isset($this->rules[$offset]) ? $this->rules[$offset] : null;
     }
-    
+
     /**
      * Returns the message for a field
      *
@@ -101,7 +107,8 @@ class Validator implements \ArrayAccess {
      *
      * @return array|string The message if exists or an empty array
      */
-    public function getMessagesFor($field) {
+    public function getMessagesFor($field)
+    {
         if ($this->hasErrors($field)) {
             return $this->messages[$field];
         }
@@ -116,8 +123,9 @@ class Validator implements \ArrayAccess {
      *
      * @return string
      */
-    public function getFirstMessageFor($field) {
-        if (!$this->hasErrors($field)) {
+    public function getFirstMessageFor($field)
+    {
+        if ( ! $this->hasErrors($field)) {
             return '';
         }
 
@@ -135,7 +143,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    public function hasErrors($field) {
+    public function hasErrors($field)
+    {
         return isset($this->messages[$field]);
     }
 
@@ -144,8 +153,8 @@ class Validator implements \ArrayAccess {
      *
      * @return array
      */
-    public function getMessages() {
-
+    public function getMessages()
+    {
         $results = [];
 
         foreach ($this->messages as $message) {
@@ -166,8 +175,9 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    public function invalid($data) {
-        return !$this->valid($data);
+    public function invalid($data)
+    {
+        return ! $this->valid($data);
     }
 
     /**
@@ -177,7 +187,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    public function valid($data) {
+    public function valid($data)
+    {
         // Store data variable
         $this->data = $data;
 
@@ -195,7 +206,8 @@ class Validator implements \ArrayAccess {
      * @param $attributes
      * @param $name
      */
-    protected function callValidators($attributes, $name) {
+    protected function callValidators($attributes, $name)
+    {
         $validators  = $attributes['validate'];
         $message     = $attributes['message'];
         $expressions = explode('|', $validators);
@@ -203,7 +215,7 @@ class Validator implements \ArrayAccess {
         $count = count($expressions);
 
         for ($i = 0; $i < $count; $i++) {
-            if (!$this->callValidator($expressions[$i], $name)) {
+            if ( ! $this->callValidator($expressions[$i], $name)) {
                 $this->storeMessage($name, $i, $message);
             }
         }
@@ -218,7 +230,8 @@ class Validator implements \ArrayAccess {
      *
      * @throws \Exception
      */
-    protected function storeMessage($name, $index, $messages) {
+    protected function storeMessage($name, $index, $messages)
+    {
         if (is_string($messages)) {
             $this->messages[$name] = $messages;
         } else if (is_array($messages) && isset($messages[$index])) {
@@ -237,13 +250,14 @@ class Validator implements \ArrayAccess {
      * @return bool
      * @throws \Exception
      */
-    protected function callValidator($expression, $name) {
+    protected function callValidator($expression, $name)
+    {
         // Check for a valid expression and store the results
         if (false === preg_match('/^([a-zA-Z0-9]+)(:(.+))?$/', $expression, $matches)) {
             throw new \Exception(__CLASS__ . " The expression [$expression] is not valid!", 3001);
         }
 
-        if (!isset($matches[1])) {
+        if ( ! isset($matches[1])) {
             throw new \Exception(__CLASS__ . " The expression [$expression] is not valid!", 3002);
         }
 
@@ -258,7 +272,7 @@ class Validator implements \ArrayAccess {
         }
 
         // The callback function must exist
-        if (!is_callable([$this, $callback])) {
+        if ( ! is_callable([$this, $callback])) {
             throw new \Exception(__CLASS__ . " The method [$callback] does not exists, please implement it before use it.", 3003);
         }
 
@@ -273,7 +287,8 @@ class Validator implements \ArrayAccess {
      *
      * @return array Parameters in array format
      */
-    protected function getParameters($parameters) {
+    protected function getParameters($parameters)
+    {
         return explode(',', $parameters);
     }
 
@@ -284,7 +299,8 @@ class Validator implements \ArrayAccess {
      *
      * @return null|string
      */
-    protected function getValue($name) {
+    protected function getValue($name)
+    {
         return isset($this->data[$name]) ? $this->data[$name] : null;
     }
 
@@ -298,13 +314,14 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateLength($value, $min, $max) {
-
+    protected function validateLength($value, $min, $max)
+    {
         if ($value === null) {
             return false;
         }
 
         $value = trim($value);
+
         return strlen($value) >= $min && strlen($value) <= $max;
     }
 
@@ -316,13 +333,14 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateNumeric($value) {
-
+    protected function validateNumeric($value)
+    {
         if ($value === null) {
             return false;
         }
 
         $value = trim($value);
+
         return is_numeric($value);
     }
 
@@ -335,9 +353,9 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateLessThan($value, $number) {
-
-        if ($value === null || !is_numeric($value)) {
+    protected function validateLessThan($value, $number)
+    {
+        if ($value === null || ! is_numeric($value)) {
             return false;
         }
 
@@ -358,12 +376,12 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateGreaterThan($value, $number) {
-
-        if ($value === null || !is_numeric($value)) {
+    protected function validateGreaterThan($value, $number)
+    {
+        if ($value === null || ! is_numeric($value)) {
             return false;
         }
-        
+
         if (is_float($value)) {
             return floatval($value) > floatval($number);
         }
@@ -382,9 +400,9 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateBetween($value, $from, $to) {
-
-        if ($value === null || !is_numeric($value)) {
+    protected function validateBetween($value, $from, $to)
+    {
+        if ($value === null || ! is_numeric($value)) {
             return false;
         }
 
@@ -403,8 +421,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateRequired($value) {
-
+    protected function validateRequired($value)
+    {
         if ($value === null) {
             return false;
         }
@@ -424,8 +442,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateEmail($value) {
-
+    protected function validateEmail($value)
+    {
         if ($value === null) {
             return false;
         }
@@ -442,8 +460,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateMinimum($value, $length) {
-
+    protected function validateMinimum($value, $length)
+    {
         if ($value === null) {
             return false;
         }
@@ -460,8 +478,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateMaximum($value, $length) {
-
+    protected function validateMaximum($value, $length)
+    {
         if ($value === null) {
             return false;
         }
@@ -480,8 +498,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateRegex($value, $expression) {
-
+    protected function validateRegex($value, $expression)
+    {
         if ($value === null) {
             return false;
         }
@@ -498,8 +516,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateMatch($value, ...$fields) {
-
+    protected function validateMatch($value, ...$fields)
+    {
         if ($value === null) {
             return false;
         }
@@ -522,8 +540,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateNotMatch($value, ...$fields) {
-
+    protected function validateNotMatch($value, ...$fields)
+    {
         if ($value === null) {
             return false;
         }
@@ -546,13 +564,13 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateNotEqual($value, ...$to) {
-
+    protected function validateNotEqual($value, ...$to)
+    {
         if ($value === null) {
             return false;
         }
 
-        return !in_array($value, $to);
+        return ! in_array($value, $to);
     }
 
     /**
@@ -564,8 +582,8 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateEqual($value, ...$to) {
-
+    protected function validateEqual($value, ...$to)
+    {
         if ($value === null) {
             return false;
         }
@@ -582,14 +600,15 @@ class Validator implements \ArrayAccess {
      *
      * @return bool
      */
-    protected function validateDate($value, $format = null) {
-
+    protected function validateDate($value, $format = null)
+    {
         if ($value === null) {
             return false;
         }
 
         // Validate format yyyy-mm-dd
         $date = \DateTime::createFromFormat($format, $value);
+
         return $date && $date->format($format) == $value;
     }
 }
