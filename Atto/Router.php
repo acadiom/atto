@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Atto;
 
 /**
@@ -110,7 +110,7 @@ class Router
      *
      * @throws \Exception
      */
-    public function register($method, $route, $action, $name = null)
+    public function register(string $method, string $route, string $action, ?string $name = null)
     {
         $method = strtoupper($method);
         if (!isset($this->routes[$method])) {
@@ -152,7 +152,7 @@ class Router
      *
      * @return array|null
      */
-    public function match($method, $uri): ?array
+    public function match(string $method, string $uri): ?array
     {
         $routes = $this->routes[$method];
 
@@ -188,7 +188,7 @@ class Router
      *
      * @return string
      */
-    protected function regex($key)
+    protected function regex(string $key): string
     {
         list($search, $replace) = $this->divide($this->optional);
         $key = str_replace($search, $replace, $key, $count);
@@ -207,7 +207,7 @@ class Router
      *
      * @return array
      */
-    protected function divide($array)
+    protected function divide(array $array): array
     {
         return [array_keys($array), array_values($array)];
     }
@@ -222,15 +222,15 @@ class Router
      *
      * @throws \Exception
      */
-    public function generate($name, $params = [])
+    public function generate(string $name, array $params = []): string
     {
         // Check if named route exists
-        if (!isset($this->names[$name])) {
+        if ( ! isset($this->names[$name])) {
             throw new \Exception("Error creating URL for undefined route '$name'.");
         }
 
         $route = $this->names[$name];
-        $uri = $this->basepath . $route;
+        $uri   = $this->basepath . $route;
 
         return $this->transpose($uri, $params);
     }
@@ -243,7 +243,7 @@ class Router
      *
      * @return string
      */
-    protected function transpose($uri, $parameters)
+    protected function transpose(string $uri, array $parameters): string
     {
         foreach ($parameters as $parameter) {
             if (!is_null($parameter)) {
