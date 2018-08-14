@@ -100,7 +100,7 @@ search = function(clearTable, offset = 0) {
         console.error(jqXHR);
 
         var message;
-        if (!jqXHR.responseJSON.code) {
+        if (jqXHR.responseJSON.code) {
             console.error(jqXHR.responseJSON.code);
             console.error(jqXHR.responseJSON.message);
             message = '<strong>Error ' + jqXHR.responseJSON.code + '</strong> ' + jqXHR.responseJSON.message;

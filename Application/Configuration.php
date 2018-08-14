@@ -1,4 +1,7 @@
 <?php
+
+use Atto\Cache\Storage\FileStorage;
+
 /**
  * Configuration file
 */
@@ -22,8 +25,8 @@ return [
 		'exception.handler'		  => null,
 
 		// Cache configuration, ttl in seconds
-		'cache.ttl'       => 10,
-        'cache.directory' => DIRECTORY_ROOT_CACHE,
+		'cache.ttl'       => 60 * 60,
+		'cache.directory' => DIRECTORY_ROOT_CACHE,
         
     	// Session configuration
     	'session.directory' => DIRECTORY_ROOT_SESSION,

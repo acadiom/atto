@@ -9,6 +9,13 @@
         </div>
 
         <div class="modal-body">
+
+            <div id="alert-component-error" class="alert alert-dismissible alert-danger collapse">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Oh snap!</h4> 
+                <p id="alert-message-error"></p>
+            </div>
+
           <form class="form-horizontal" id="frmCreateCode">
             <fieldset>
               <!-- Concatenated -->
@@ -109,6 +116,7 @@
 
       // Validate data 
       validateConcatenated();
+      validateAcronym();
   });
 
   $("#descriptionTextarea").keyup(function() {
@@ -132,6 +140,7 @@
 
     request.done(function (response, textStatus, jqXHR) {
       console.log(response);
+
       if (Number.isInteger(response) === true) {
         // Todo: show a success message
         var message = 'New code created, please use the filter to view the new code.';
@@ -146,19 +155,35 @@
         $('#frmCreateCode').trigger("reset");
         $('#frmCreateCode .has-success').removeClass('has-success');
         $('#createCode').modal('hide');
-      } else if (response.code !== undefined) {
-        // Error here ... 
-        console.error(response);
       }
+
     });
 
     // Callback handler that will be called on failure
     request.fail(function (jqXHR, textStatus, errorThrown) {
-      console.log(response);
+      // alert-component-error
+      var message;
+      console.log(jqXHR.responseJSON);
+      if (jqXHR.responseJSON.code) {
+          console.error(jqXHR.responseJSON.code);
+          console.error(jqXHR.responseJSON.message);
+          message = '<strong>Error ' + jqXHR.responseJSON.code + '</strong> ' + jqXHR.responseJSON.message;
+      } else {
+          message = '<strong>Error 500</strong> There was a problem with the request, please try again later.';
+      }
+
+        $('#alert-message-error').html(message);
+        $('#alert-component-error').fadeIn(1000);
+        setTimeout(function() { 
+            $('#alert-component-error').fadeOut(1000);
+        }, 5000);
+
     });
 
-    // Reset the request 
-    request = null;
+    // To prevent enter key several times on ajax call
+    request.complete(function(jqXHR, textStatus) {
+        request = false;
+    });
   });
 
   function validateFormData() {

@@ -135,8 +135,14 @@ class CodeController extends ApplicationController
         $model->setMessage($description);
 
         try {
-            
+            // Create a new code in the database.
             $codeId = $model->save();
+
+            // We must clean the cache 
+            $cache = new Cache(new FileStorage());
+            $cache->clear();
+
+            // Return the code identifier
             return $this->ajax($codeId);
 
         } catch (\Exception $e) {

@@ -22,7 +22,7 @@
             <div class="text-right form-filter col-sm-5 col-md-4">
                 <div class="btn-group btn-group">
                     <a href="#" class="btn btn-default" id="btn-create-code"><i class="fa fa-pencil" aria-hidden="true"></i> Create code</a>
-                    <a href="#" class="btn btn-default" id="btn-load-file"><i class="fa fa-file-code-o" aria-hidden="true"></i> Load file</a>
+                    <a href="#" class="btn btn-default disabled" id="btn-load-file"><i class="fa fa-file-code-o" aria-hidden="true"></i> Load file</a>
                 </div>
             </div>
         </div>
