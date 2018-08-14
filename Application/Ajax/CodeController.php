@@ -125,7 +125,27 @@ class CodeController extends ApplicationController
         $language = $_POST['language'];
         $description = $_POST['description'];
 
-        return $this->ajax(true);
+
+        $model = new I18nCode();
+        $model->setAcronymCode($concatenated);
+        $model->setAcronym($acronym);
+        $model->setCode($code);
+        $model->setDataType($dataType);
+        $model->setLanguage($language);
+        $model->setMessage($description);
+
+        try {
+            
+            $codeId = $model->save();
+            return $this->ajax($codeId);
+
+        } catch (\Exception $e) {
+            $error['code'] = $e->getCode();
+            $error['message'] = $e->getMessage();
+
+            // Todo: Change the header with a Request constant
+            return $this->ajax($error, "HTTP/1.1 500 Internal Server Error");
+        }
 
     }
 

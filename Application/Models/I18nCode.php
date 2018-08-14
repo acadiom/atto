@@ -276,6 +276,33 @@ class I18nCode extends ApplicationModel
         return $this->updatedAt;
     }
 
+    protected function create()
+    {
+        $query  = 'INSERT INTO ';
+        $query .= static::tableName() . ' ';
+        $query .= '(acronym, data_type, language, code, acronym_code, message, deleted) ';
+        $query .= 'VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+        static::database()->prepare($query);
+        static::database()->bind('sssssss', $this->acronym, $this->dataType, $this->language, $this->code, $this->acronymCode, $this->message, 'N');
+
+        if ( ! static::database()->execute()) {
+            
+            $message = static::database()->getError();
+            $code    = static::database()->getErrorCode();
+
+            throw new \Exception($message, $code);
+        }
+
+        return static::database()->insertId();
+    }
+
+    public function save() 
+    {
+        // Create an insert now .... 
+        return $this->create();
+    }
+
     /**
      * Returns the results count for the search criteria
      *

@@ -8,6 +8,9 @@
     <!-- Create error message component -->
     @include('components.error-message')
 
+    <!-- Create success message component -->
+    @include('components.success-message')    
+
     <!-- Search form component -->
     @include('components.search-form')
 

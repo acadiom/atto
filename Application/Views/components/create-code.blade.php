@@ -92,7 +92,6 @@
       $('#concatenated').focus();
   });
 
-
   /**
    * Splits the text and populate the acronym and the code
    */
@@ -109,7 +108,7 @@
       }
 
       // Validate data 
-      validateFormData();
+      validateConcatenated();
   });
 
   $("#descriptionTextarea").keyup(function() {
@@ -118,7 +117,9 @@
   });
 
   $('#btnSaveChanges').click(function(event) {
-    validateFormData();
+    if ( ! validateFormData()) {
+      return false;
+    }
 
     console.log($('#frmCreateCode').serialize());
 
@@ -131,10 +132,23 @@
 
     request.done(function (response, textStatus, jqXHR) {
       console.log(response);
-      if (response === true) {
-        // Todo: remove data from the form
+      if (Number.isInteger(response) === true) {
+        // Todo: show a success message
+        var message = 'New code created, please use the filter to view the new code.';
+
+        $('#success-message-p').html(message);
+        $('#success-message-component').fadeIn(1000);
+        setTimeout(function() { 
+            $('#success-message-component').fadeOut(1000);
+        }, 5000);
+
+        // Reset all form fields
         $('#frmCreateCode').trigger("reset");
+        $('#frmCreateCode .has-success').removeClass('has-success');
         $('#createCode').modal('hide');
+      } else if (response.code !== undefined) {
+        // Error here ... 
+        console.error(response);
       }
     });
 
@@ -143,12 +157,16 @@
       console.log(response);
     });
 
+    // Reset the request 
+    request = null;
   });
 
   function validateFormData() {
-    validateConcatenated();
-    validateAcronym();
-    validateDescription();
+    var validConcatenated = validateConcatenated();
+    var validAcronym = validateAcronym();
+    var validDescription = validateDescription();
+
+    return validAcronym && validateConcatenated && validDescription;
   }
 
   function validateConcatenated() {
@@ -159,9 +177,14 @@
       concatenatedInput.parent().addClass('has-error').removeClass('has-success');
       // Show error message
       concatenatedHelp.html('The code must match the following regex: "/^[a-z0-9]{6}_[a-z0-9]+$/i", e.g. ABCDEF_000001');
+      
+      return false;
+
     } else {
       concatenatedInput.parent().removeClass('has-error').addClass('has-success');
       concatenatedHelp.html('');
+
+      return true;
     }
   }
 
@@ -172,9 +195,14 @@
     if ( ! acronymInput.val().match(/^[A-Z0-9]{6}$/)) {
       acronymInput.parent().addClass('has-error').removeClass('has-success');
       acronymHelp.html('The acronym must match the following regex: "/^[A-Z0-9]{6}$/", e.g. ABCDEF');
+
+      return false;
+
     } else {
       acronymInput.parent().removeClass('has-error').addClass('has-success');
       acronymHelp.html('');
+
+      return true;
     }
   }
 
@@ -184,10 +212,15 @@
 
     if (descriptionTextarea.val() == '') {
       descriptionTextarea.parent().addClass('has-error').removeClass('has-success');
-      descriptionHelp.html('The code message cannot be empty.');
+      descriptionHelp.html('The code message / description cannot be empty.');
+
+      return false;
+
     } else {
       descriptionTextarea.parent().removeClass('has-error').addClass('has-success');
       descriptionHelp.html('');
+
+      return true;
     }
   }
 
